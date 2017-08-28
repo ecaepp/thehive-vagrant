@@ -1,0 +1,29 @@
+---
+- name: thehive
+  hostname: 'thehive'
+  private_ip: '192.168.10.4'
+  box: 'ubuntu/xenial64'
+  guest: ['9000']
+  host: ['9000']
+  playbook: 'playbook.yml'
+  provider: 'virtualbox'
+  ram: '512'
+- name: elasticsearch
+  hostname: 'elasticsearch'
+  private_ip: '192.168.10.5'
+  box: 'ubuntu/xenial64'
+  guest: ['9200', '9300']
+  host: ['9200', '9300']
+  ram: '512'
+  playbook: 'playbook.yml'
+  provider: 'virtualbox'
+  ram: '512'
+- name: cortex
+  hostname: 'cortex'
+  private_ip: '192.168.10.6'
+  box: 'ubuntu/xenial64'
+  guest: ['9000']
+  host: ['9000']
+  playbook: 'playbook.yml'
+  provider: 'virtualbox'
+  ram: '1024'

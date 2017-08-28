@@ -1,0 +1,12 @@
+[thehive]
+192.168.10.4
+ansible_user = vagrant
+
+[cortex]
+192.168.10.6
+ansible_user = vagrant
+
+[elasticsearch]
+192.168.10.5
+ansible_user = vagrant
+

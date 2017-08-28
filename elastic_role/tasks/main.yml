@@ -1,0 +1,38 @@
+---
+- name: Add pgp key for Elastic
+  apt_key:
+    keyserver: hkp://keyserver.ubuntu.com:80
+    id: D88E42B4
+    state: present
+
+- name: Add OpenJDK and Elascitc repos
+  apt_repository:
+    repo: "{{ item }}"
+    state: present
+  with_items:
+    - deb https://packages.elastic.co/elasticsearch/2.x/debian stable main
+    - ppa:openjdk-r/ppa
+  notify: update_cache
+
+- name: Install depends and elasticsearch
+  apt:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - openjdk-8-jre-headless
+    - elasticsearch
+
+- name: Start Elasticsearch
+  systemd:
+    state: started
+    name: elasticsearch
+    enabled: yes
+
+- name: write conf file from template
+  template:
+    src: "elasticsearch.yml.j2"
+    dest: "/etc/elasticsearch/elasticsearch.yml"
+    owner: root
+    group: root
+    mode: "u=rw,g=r,o=r"
+  notify: restart_elasticsearch

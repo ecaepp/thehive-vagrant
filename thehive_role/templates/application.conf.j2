@@ -1,0 +1,111 @@
+# Https config
+https.port: {{ https_port }}
+play.server.https.keystore {
+  path: "{{ keystore_path }}"
+  type: "{{ keystore_type }}"
+  password: "{{ keystore_password }}"
+}
+
+
+http.port: {{ http_port }}
+
+
+# Secret key
+# ~~~~~
+# The secret key is used to secure cryptographics functions.
+# If you deploy your application to several instances be sure to use the same key!
+play.crypto.secret="{{ crypto_secret }}"
+
+# ElasticSearch
+search {
+  # Name of the index
+  index = {{ es_index }}
+  # Name of the ElasticSearch cluster
+  cluster = {{ es_cluster }}
+  # Address of the ElasticSearch instance
+  host = ["{{ es_host }}"]
+  # Scroll keepalive
+  keepalive = 1m
+  # Size of the page for scroll
+  pagesize = 50
+}
+
+
+auth {
+    # "type" parameter contains authentication provider. It can be multi-valued (useful for migration)
+    # available auth types are:
+    # services.LocalAuthSrv : passwords are stored in user entity (in ElasticSearch). No configuration are required.
+    # ad : use ActiveDirectory to authenticate users. Configuration is under "auth.ad" key
+    # ldap : use LDAP to authenticate users. Configuration is under "auth.ldap" key
+    type = [{{ auth_type }}]
+
+
+
+    ad {
+        # Domain Windows name using DNS format. This parameter is required.
+        #domainFQDN = "mydomain.local"
+
+        # Domain Windows name using short format. This parameter is required.
+        #domainName = "MYDOMAIN"
+
+        # Use SSL to connect to domain controller
+        #useSSL = true
+    }
+
+    ldap {
+        # LDAP server name or address. Port can be specified (host:port). This parameter is required.
+        #serverName = {{ ldap_server }}
+
+        # Use SSL to connect to directory server
+        #useSSL = {{ ldap_ssl }}
+
+        # Account to use to bind on LDAP server. This parameter is required.
+        #bindDN = {{ ldap_binddn }}
+
+        # Password of the binding account. This parameter is required.
+        #bindPW = {{ ldap_bindpw }}
+
+        # Base DN to search users. This parameter is required.
+        #baseDN = {{ ldap_basedn }}
+
+        # Filter to search user {0} is replaced by user name. This parameter is required.
+        #filter = {{ ldap_filter }}
+    }
+}
+
+# Maximum time between two requests without requesting authentication
+session {
+  warning = {{ time_warn }}
+  inactivity = {{ time_inact }}
+}
+
+## Enable the Cortex module
+play.modules.enabled += connectors.cortex.CortexConnector
+
+cortex {
+  "CORTEX-SERVER-ID" {
+    # URL of the CORTEX server
+    url = "{{ cortex_url }}"
+  }
+}
+
+
+
+## Enable the MISP module
+#play.modules.enable += connectors.misp.MispConnector
+#misp {
+  #"MISP-SERVER-ID" {
+    # URL of MISP server
+    #url =
+    # authentication key
+    key = ""
+    #tags to be added to imported artifact
+    #tags = []
+  #}
+
+  # truststore to used to validate MISP certificate (if default truststore is not sufficient)
+  #cert =
+
+  # Interval between two MISP event import
+  #interval =
+#}

@@ -1,0 +1,47 @@
+---
+- name: Add repos to source list
+  apt_repository:
+    repo: "{{ item }}"
+    state: present
+  with_items:
+    - deb https://dl.bintray.com/cert-bdf/debian any main
+    - ppa:openjdk-r/ppa
+
+- name: Install common packages
+  apt:
+    package: '{{ item }}'
+    state: present
+    update_cache: yes
+  with_items:
+    - python-minimal
+    - git
+    - openjdk-8-jre-headless
+
+- name: Add TheHive pgp key
+  apt_key:
+    keyserver: hkp://pgp.mit.edu
+    id: 562CBC1C
+    state: present
+  notify: update_cache
+
+- name: Install Thehive
+  apt:
+    package: thehive
+    state: present
+  #ignore_errors: yes  # This is here for testing.
+
+- name: Start TheHive
+  systemd:
+    state: started
+    enabled: yes
+    name: thehive
+
+- name: Copy TheHive conf file to Vagrant boxes
+  #copy:
+  template:
+    src: "application.conf.j2"
+    dest: "/etc/thehive/application.conf"
+    owner: root
+    group: root
+    mode: "u=rw,g=r,o=r"
+  notify: restart_thehive

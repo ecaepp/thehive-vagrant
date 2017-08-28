@@ -1,0 +1,38 @@
+---
+# network
+https_port: 9443
+http_port: 9000
+
+# Java Keystore
+keystore_path: "/opt/thehive/con/thehive.jks"
+keystore_type: "JKS"
+keystore_password: "password"
+
+# Secret Key
+crypto_secret: "secret"
+
+# Elasticsearch
+es_index: "the_hive"
+es_cluster: "hive"
+es_host: "192.168.10.5:9300"
+
+# Auth
+auth_type: local,ldap
+
+ad_fqdn: ""
+ad_dn: ""
+as_ssl: ""
+
+ldap_server: ""
+ldap_ssl: ""
+ldap_binddn: ""
+ldap_bindpw: ""
+ldap_basedn: ""
+ldap_filter: ""
+
+# Cortex
+cortex_url: "http://192.168.10.6:9000"
+
+# Time between request
+time_warn: 5m
+time_inact: 1h
