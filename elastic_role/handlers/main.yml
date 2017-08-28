@@ -1,0 +1,11 @@
+---
+# handlers file for thehive_es
+- name: restart_elasticsearch
+  service:
+    name: elasticsearch
+    state: restarted
+
+- name: update_cache
+  apt:
+    update_cache: yes
+

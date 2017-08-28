@@ -1,0 +1,11 @@
+---
+# handlers file for cortex_role
+
+- name: update_cache
+  apt:
+    update_cache: yes
+
+- name: restart_cortex
+  service:
+    name: cortex
+    state: restarted

@@ -1,0 +1,5 @@
+---
+# defaults file for thehive_es
+es_nethost: 192.168.10.5
+es_cluster: hive
+es_backup: ""

@@ -1,0 +1,54 @@
+---
+- name: Add repos to source list
+  apt_repository:
+    repo: "{{ item }}"
+    state: present
+  with_items:
+    - deb https://dl.bintray.com/cert-bdf/debian any main
+    - ppa:openjdk-r/ppa
+
+- name: Install common packages
+  apt:
+    package: '{{ item }}'
+    state: present
+    update_cache: yes
+  with_items:
+    - "{{ depends }}"
+
+- name: Add TheHive pgp key
+  apt_key:
+    keyserver: hkp://pgp.mit.edu
+    id: 562CBC1C
+    state: present
+  notify: update_cache
+
+- name: Install Cortex
+  apt:
+    package: cortex
+    state: present
+
+- name: Start Cortex
+  systemd:
+    state: started
+    enabled: yes
+    name: cortex
+
+- name: build  cortex config from template
+  template:
+    src: "application.conf.j2"
+    dest: "/etc/cortex/application.conf"
+    owner: root
+    group: root
+    mode: "u=rw,g=r,o=r"
+
+- name: clone analyzer repo
+  git:
+    repo: "https://github.com/CERT-BDF/Cortex-Analyzers.git"
+    dest: "/opt/analyzers"
+  #notify: restart_cortex
+
+- name: Install analyzer depends
+  shell: sudo -H pip install $(sort -u */requirements.txt)
+  args:
+    chdir: /opt/analyzers/analyzers
+  notify: restart_cortex

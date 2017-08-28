@@ -1,0 +1,32 @@
+---
+# defaults file for cortex_role
+
+# Secret Key
+crypto_secret:
+
+# Network Config
+https_port: 9443
+http_port: disabled
+
+# Java Keystore
+keystore_path: "/opt/cortex/conf"
+keystore_type: "JKS"
+keystore_password: ""
+
+# Analyzers
+# Location
+analyzer_location: "/opt/analyzers/analyzers"
+# DNSDB
+dnsdb_key: ""
+# DomainTools
+dt_username: ""
+dt_key: ""
+# VirusTotal
+vt_key: ""
+# PhishTank
+pt_key: ""
+# OTXQuery
+otx_key: ""
+
+# Install dependancies
+depends: ["ssdeep", "libfuzzy-dev", "libfuzzy2", "libimage-exiftool-perl", "libmagic1", "build-essential", "python-pip", "openjdk-8-jre-headless", "git"]

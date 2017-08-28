@@ -1,0 +1,10 @@
+---
+# handlers file for thehive_role
+- name: restart_thehive
+  service:
+    name: thehive
+    state: restarted
+
+- name: update_cache
+  apt:
+    update_cache: yes

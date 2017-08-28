@@ -1,0 +1,47 @@
+# Secret key
+# ~~~~~
+# The secret key is used to secure cryptographics functions.
+# If you deploy your application to several instances be sure to use the same key!
+play.crypto.secret=""
+
+
+# Https config
+https.port: {{ https_port }}
+play.server.https.keystore {
+  path: "{{ keystore_path }}"
+  type: "{{ keystore_type }}"
+  password: "{{ keystore_password }}"
+}
+
+analyzer {
+  # Directory that holds analyzers
+  path = "{{ analyzer_location }}"
+  # Analyzer configuration
+  config {
+    #global {
+      #proxy {
+      #       http="http://127.0.0.1:3128",
+      #       https="http://127.0.0.1:3128"
+      #}
+    DNSDB {
+      server="https://api.dnsdb.info"
+      #key="{{ dnsdb_key }}"
+    }
+    DomainTools {
+      #username="{{ dt_username }}"
+      #key="{{ dt_key }}"
+    }
+    VirusTotal {
+      key="{{ vt_key }}"
+    }
+    Hippocampe {
+      url="http://localhost:5000/hippocampe/api/v1.0/"
+    }
+    PhishTank_CheckURL {
+        key="{{ pt_key }}"
+    }
+    OTXQuery {
+	key="{{ otx_key }}"
+    }
+  }
+}
