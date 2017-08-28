@@ -1,0 +1,4 @@
+---
+- include: thehive_playbook.yml
+- include: elastic_playbook.yml
+- include: cortex_playbook.yml
