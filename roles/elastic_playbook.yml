@@ -1,0 +1,5 @@
+---
+- hosts: elasticsearch
+  become: yes
+  roles:
+    - role: elastic_role
