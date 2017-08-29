@@ -1,0 +1,4 @@
+---
+- include: roles/thehive_playbook.yml
+- include: roles/elastic_playbook.yml
+- include: roles/cortex_playbook.yml

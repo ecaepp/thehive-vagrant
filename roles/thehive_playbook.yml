@@ -1,0 +1,5 @@
+---
+- hosts: thehive
+  become: yes
+  roles:
+    - role: thehive_role

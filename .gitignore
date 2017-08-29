@@ -198,3 +198,4 @@ common
 create_key.sh
 base-box
 vagrantfile-example
+.idea/vagrant.xml

@@ -1,0 +1,5 @@
+---
+- hosts: cortex
+  become: yes
+  roles:
+    - role: cortex_role
