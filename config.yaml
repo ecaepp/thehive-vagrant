@@ -1,5 +1,5 @@
 ---
-- name: thehive
+- name: thehive-vagrant
   hostname: 'thehive'
   private_ip: '192.168.10.4'
   box: 'ubuntu/xenial64'
@@ -8,7 +8,7 @@
   playbook: 'playbook.yml'
   provider: 'virtualbox'
   ram: '512'
-- name: elasticsearch
+- name: elasticsearch-vagrant
   hostname: 'elasticsearch'
   private_ip: '192.168.10.5'
   box: 'ubuntu/xenial64'
@@ -18,7 +18,7 @@
   playbook: 'playbook.yml'
   provider: 'virtualbox'
   ram: '512'
-- name: cortex
+- name: cortex-vagrant
   hostname: 'cortex'
   private_ip: '192.168.10.6'
   box: 'ubuntu/xenial64'
