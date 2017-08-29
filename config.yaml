@@ -26,4 +26,4 @@
   host: ['9000']
   playbook: 'playbook.yml'
   provider: 'virtualbox'
-  ram: '1024'
+  ram: '512'
